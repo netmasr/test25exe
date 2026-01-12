@@ -1,0 +1,37 @@
+name: Build Electron Windows App
+
+on:
+  push:
+    branches: [ "main", "master" ] # يعمل عند رفع أي كود جديد
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    # 1. جلب الكود
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 2. تجهيز بيئة Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    # 3. تثبيت المكاتب (بما فيها electron-builder)
+    - name: Install Dependencies
+      run: npm install
+
+    # 4. عملية البناء الفعلي
+    - name: Build EXE
+      run: npm run build
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # توكن تلقائي من جيتهب
+
+    # 5. رفع الملف الناتج لكي تحمله أنت
+    - name: Upload Artifact (EXE)
+      uses: actions/upload-artifact@v4
+      with:
+        name: My-Windows-App
+        path: dist/*.exe # يبحث عن ملف exe داخل مجلد dist
