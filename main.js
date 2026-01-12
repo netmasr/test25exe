@@ -6,12 +6,12 @@ function createWindow() {
     width: 400,
     height: 600,
     resizable: false,
+    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true
-    },
-    autoHideMenuBar: true
+    }
   });
 
   win.loadFile('renderer/index.html');

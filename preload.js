@@ -1,3 +1,3 @@
 window.addEventListener('DOMContentLoaded', () => {
-  console.log('Calculator Loaded');
+  console.log('Calculator Preload Script Loaded');
 });
